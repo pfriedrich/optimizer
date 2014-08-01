@@ -183,7 +183,7 @@ class DATA():
     
     
     
-    def detect_format(self,line):
+    def detect_format(self,line,contains_time):
         """
         Automatically detects the format of the file and returns a reader functions which can process it correctly.
         The recognized formats are the following:
@@ -206,11 +206,16 @@ class DATA():
         spike_times_rule=re.compile("# variable = spikes")
         rules=[pynn_rule,neuron_rule_time,neuron_rule,spike_times_rule]
         result=[n!=None for n in [re.match(k,line) for k in rules ] ]
+        #print line
         #print result
-        #print result.index(True)
-        return [self.PyNNReader,self.traceReaderTime,self.traceReader,self.spikeTimeReader][result.index(True)]
+        # FIXED: if no time specified, the second true option
+        # (traceReader) should be chosen
+        index = result.index(True)
+        if not contains_time and index == 1:
+            index += 1
+        return [self.PyNNReader,self.traceReaderTime,self.traceReader,self.spikeTimeReader][index]
     
-    def Read(self,path=[os.getcwd()+"/inputTrace.txt"],no_traces=1,scale="mV",t_length=1000,freq=1000,trace_type="voltage"):
+    def Read(self,path=[os.getcwd()+"/inputTrace.txt"],no_traces=1,scale="mV",t_length=1000,freq=1000,trace_type="voltage", contains_time=False):
         """
         The main reader function. This calls the recognition function ``detect_format``
         and uses the obtained reader function to read the data.
@@ -232,7 +237,7 @@ class DATA():
             tmp.append(f.readline())
             i+=1
         if trace_type!="spike":
-            self.data=self.detect_format(tmp[4])(path,no_traces,scale,t_length,freq,trace_type)
+            self.data=self.detect_format(tmp[4],contains_time)(path,no_traces,scale,t_length,freq,trace_type)
         else:
             self.additional_data=self.spikeTimeReader(path, no_traces, scale, t_length, freq, trace_type)
             
@@ -436,9 +441,3 @@ class traceWriter(Trace):
                 f.write(self.separator.join(string.strip(k,"[]") for k in temp))
                 f.write("\n")
             
-                
-            
-            
-                
-    
-    
