@@ -450,7 +450,7 @@ class inputLayer(wx.Frame):
         import optimizer
         path = os.path.dirname(optimizer.__file__)
 
-        self.path = path
+        self.path = os.path.abspath(path)
         self.layer = None
         self.panel = wx.Panel(self)
         self.Center()
@@ -721,11 +721,11 @@ class modelLayer(wx.Frame):
         self.parent = parent
         self.core = core
         self.layer = None
-
+        
         #this will need to be wrapped in a try statement later:
         import optimizer
         print optimizer.__file__
-        path = os.path.dirname(optimizer.__file__)
+        #path = os.path.dirname(optimizer.__file__)
 
         self.path = path
         #print "path",self.path
@@ -733,11 +733,6 @@ class modelLayer(wx.Frame):
         self.ToolbarCreator()
         self.Design()
         #self.is_loaded=False
-        
-        
-
-        
-
        
     def ToolbarCreator(self):
         
@@ -748,6 +743,7 @@ class modelLayer(wx.Frame):
         self.Bind(wx.EVT_TOOL, self.Next, button_toolbar_fward)
         self.Bind(wx.EVT_TOOL, self.Prev, button_toolbar_bward)
         self.toolbar.EnableTool(button_toolbar_fward.GetId(), False)     
+    
     def Design(self):
         
         self.horizontal_box1 = wx.BoxSizer(wx.HORIZONTAL)
@@ -1104,7 +1100,7 @@ class stimuliLayer(wx.Frame):
         #this will need to be wrapped in a try statement later:
         import optimizer
         print optimizer.__file__
-        path = os.path.dirname(optimizer.__file__)
+        #path = os.path.dirname(optimizer.__file__)
         
         self.path = path
         #print "path",self.path
@@ -1381,7 +1377,7 @@ class ffunctionLayer(wx.Frame):
         #this will need to be wrapped in a try statement later:
         import optimizer
         print optimizer.__file__        
-        path = os.path.dirname(optimizer.__file__)
+        #path = os.path.dirname(optimizer.__file__)
         
         self.path = path
         self.Center()
@@ -1389,7 +1385,6 @@ class ffunctionLayer(wx.Frame):
         self.Design()
         self.seed = None
         self.kwargs = kwargs
-        
         #print "ffun",kwargs
         self.layer = None
 
@@ -1815,7 +1810,7 @@ class resultsLayer(wx.Frame):
         #this will need to be wrapped in a try statement later:
         import optimizer
         print optimizer.__file__        
-        path = os.path.dirname(optimizer.__file__)
+        #path = os.path.dirname(optimizer.__file__)
 
         self.path = path
         self.panel = wx.Panel(self)
@@ -1945,7 +1940,7 @@ class analyzisLayer(wx.Frame):
         #this will need to be wrapped in a try statement later:
         import optimizer
         print optimizer.__file__
-        path = os.path.dirname(optimizer.__file__)
+        #path = os.path.dirname(optimizer.__file__)
 
         self.path = path
         self.Center()

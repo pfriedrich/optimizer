@@ -583,16 +583,3 @@ class coreModul():
         self.grid_result=self.optimizer.final_pop
         self.optimizer.final_pop=self.prev_result
         
-
-             
-        
-                  
-               
-               
-               
-               
-               
-               
-        
-        
-        
