@@ -708,6 +708,11 @@ class fF():
             print self.calc_ase(m, e, args)
         return self.calc_ase(m, e, args)
         
+    def calc_ase_cov(self, mod_t, exp_t, args)
+        import numpy as np
+        diff = np.array(exp_t).__sub__(np.array(mod_t))
+        return diff.dot(args["cov_m"].I).dot(diff)
+        
     def calc_ase(self, mod_t, exp_t, args):
         """
         Calculates the normalized average squared difference of the traces.
@@ -720,6 +725,8 @@ class fF():
             the squared range of the input trace
             
         """
+        if (args["cov_m"]!=None):
+                return self.calc_ase_cov(mod_t,exp_t,args)
         temp = []
         for n in range(min([len(exp_t), len(mod_t)])):
             try:
