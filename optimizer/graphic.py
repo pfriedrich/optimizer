@@ -2070,7 +2070,7 @@ class analyzisLayer(wx.Frame):
     
             #,marker='o', color='r', ls=''
             for i in range(len(self.core.option_handler.GetObjTOOpt())):
-                for points, fitness in zip(self.core.optimizer.final_pop[0][i],self.core.optimizer.final_pop[1][i]):
+                for points, fitness in zip(self.core.grid_result[0][i],self.core.grid_result[1][i]):
                     a[i].plot(points[i],
                                            fitness[0], marker='o', color='r', ls='')
                 a[i].set_title(self.core.option_handler.GetObjTOOpt()[i].split()[-1])
