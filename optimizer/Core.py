@@ -576,11 +576,11 @@ class coreModul():
         Calculates fitness values on a defined grid (see optimizerHandler module for more).
         This tool is purely for analyzing results, and we do not recommend to use it to obtain parameter values.
         """
-        
-        self.prev_result=self.optimizer.final_pop
+        import copy
+        self.prev_result=copy.copy(self.optimizer.final_pop)
         self.optimizer=grid(self.data_handler,self.model_handler,self.option_handler,resolution)
         self.optimizer.Optimize(self.optimal_params)
-        self.grid_result=self.optimizer.final_pop
+        self.grid_result=copy.copy(self.optimizer.final_pop)
         self.optimizer.final_pop=self.prev_result
         
 
