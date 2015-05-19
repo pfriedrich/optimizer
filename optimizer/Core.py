@@ -484,7 +484,7 @@ class coreModul():
                         for line in in_handler:
                             self.model_handler.spike_times.append(int(float(line) / (1000.0 / self.option_handler.input_freq)))
                         in_handler.close();
-                    except OSError:
+                    except (OSError, IOError):
                         pass
                     
                     
@@ -582,17 +582,4 @@ class coreModul():
         self.optimizer.Optimize(self.optimal_params)
         self.grid_result=copy.copy(self.optimizer.final_pop)
         self.optimizer.final_pop=self.prev_result
-        
-
-             
-        
-                  
-               
-               
-               
-               
-               
-               
-        
-        
         
